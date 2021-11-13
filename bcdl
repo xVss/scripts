@@ -1,12 +1,12 @@
 #!/bin/python3
 
-# Dependecnsies:
+# Dependencies:
 # requests
 # tageditor -- https://github.com/Martchus/tageditor
 
 # I made this script during a sleepless night to experiment a bit with requests
 # It's a mess, but it seems to work
-# BTW, I never actually used it
+# After writing it, I never actually used it...
 
 # Let's hope Bandcamp doesn't change the site soon or the script will break
 
@@ -14,9 +14,10 @@
 # python3 bcdl.py [album URL on Bandcamp]
 
 # TODO:
-# 1- Add an HTML escaper to not translate the HTML entities
-# 2 - Find the string with artist name in case you're downloading a playlist
-# I'm probably never gonna touch this script again
+# 1 - Add an HTML escaper to not translate the HTML entities
+# 2 - Find the string with artist name for each song in case you're downloading a playlist
+# 3 - Overall rewriting of the script
+# ... buuuut, I'm probably never gonna touch this script again
 
 import requests
 import os
