@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 # Usage:
-# bookmarks -a -> To save an URL saved in the system clipboard
+# bookmarks -a -> To save an URL present in the system clipboard
 # bookmarks -o -> To open an already saved URL
+# Bind these commands to some key combination; using them on the terminal kills their usefulness
+# Make a git repo of your bookmarks so you never lose them
 
 # Dependencies:
 # rofi - xclip
