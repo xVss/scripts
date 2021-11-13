@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Prettify a json file
+
+python -m json.tool

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Trasform spaces in newlines
+
+sed 's: :\n:g'

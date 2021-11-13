@@ -1,0 +1,5 @@
+#! /bin/sh
+
+# Open in mpv the video URL saved in the system clipboard
+
+notify-send 'MPV' 'Loading video to stream' --icon=video-x-generic && xclip -o -sel clip | xargs mpv

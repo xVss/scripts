@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Remove trailing spaces
+
+sed 's:\s*$::g'

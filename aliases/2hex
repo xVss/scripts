@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Convert decimal or binary number to hex with pcalc
+
+pcalc `cat -` | awk '{print $2}'
