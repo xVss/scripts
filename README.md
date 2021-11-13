@@ -1,6 +1,6 @@
 # some random scripts i wrote
 
- i'm not newbe scripter, so any advice/correction is welcomed! 😊
+ i'm a newbe scripter, so any advice/correction is welcomed! 😊
 
 ## [bcdl](https://github.com/xVss/scripts/blob/master/bcdl)
 
