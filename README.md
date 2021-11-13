@@ -5,3 +5,13 @@
 a messy *sleepless night* script that downloads albums from Bandcamp, tagging each song with few infos. very bad but it works.
 
 ![bcdl gif](res/bcdl.gif)
+
+## [bookmarks](https://github.com/xVss/scripts/blob/master/bookmarks)
+
+a system-wide browser-independent simple bookmark system
+
+it uses the system clipboard to save the bookmark in a file representing a *traditional* folder
+
+each line in a file is composed by the url and its description
+
+![bookmarks gif](res/bookmarks.gif)
