@@ -1,0 +1,70 @@
+#!/bin/python3
+
+# Dependecnsies:
+# requests
+# tageditor -- https://github.com/Martchus/tageditor
+
+# I made this script during a sleepless night to experiment a bit with requests
+# It's a mess, but it seems to work
+# BTW, I never actually used it
+
+# Let's hope Bandcamp doesn't change the site soon or the script will break
+
+# Usage:
+# python3 bcdl.py [album URL on Bandcamp]
+
+# TODO:
+# 1- Add an HTML escaper to not translate the HTML entities
+# 2 - Find the string with artist name in case you're downloading a playlist
+# I'm probably never gonna touch this script again
+
+import requests
+import os
+import sys
+import re
+
+url = sys.argv[1]
+get = requests.get(url)
+
+# Find the album informations
+linkStream = re.findall(
+    'https://t4.bcbits.com/stream/.{,32}/mp3-128/.{,11}?p=0&amp;ts=.{,11}&amp;t=.{,42}&amp;token=.{,56}', get.text)
+artist = re.findall(
+    '<p id="band-name-location">\s*<span class="title">(.*?)</span>', get.text)
+trackTitle = re.findall(
+    'class="track-title">(.*)</span></a>', get.text)
+album = re.findall('<meta name="title" content="(.*?), .*?">', get.text)
+cover = re.findall('<a class="popupImage" href="(.*?)">\s*<img', get.text)
+
+# Download cover
+img = requests.get(cover[0])
+with open('cover.jpg', 'wb') as fd:
+    for chunk in img.iter_content(chunk_size=128):
+        fd.write(chunk)
+
+# Download and tag songs
+for i in range(len(linkStream)):
+    command = 'tageditor set tag=id3 title="' + trackTitle[i] + \
+        '" album="' + album[0] + \
+        '" artist="' + artist[0] + \
+        '" albumartist="' + artist[0] + \
+        '" cover="cover.jpg" track="' + str(i+1)+'/'
+
+    trackTitle[i] = trackTitle[i].replace('/', '')
+
+    command = command + str(len(linkStream)) + '" -f "' + \
+        str(i+1) + '_' + trackTitle[i] + '.mp3"'
+
+    new = linkStream[i].replace('amp;', '')
+    # The following line is probably useless but now everything is working, so i'm gonna leave it lol
+    new = new.replace('&quot', '')
+
+    dl = requests.get(new)
+    with open(str(i+1) + '_' + trackTitle[i]+'.mp3', 'wb') as fd:
+        for chunk in dl.iter_content(chunk_size=128):
+            fd.write(chunk)
+    os.system(command)
+
+command = 'rm *.bak'
+os.system(command)
+os.system('rm cover.jpg')
