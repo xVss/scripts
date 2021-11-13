@@ -1,6 +1,10 @@
 # some random scripts i wrote
 
- i'm a newbe scripter, so any advice/correction is welcomed! 😊
+i'm a newbe scripter, so any advice/correction is welcomed! 😊
+
+## [aliases](https://github.com/xVss/scripts/blob/master/bcdl)
+
+some simple oneliners
 
 ## [bcdl](https://github.com/xVss/scripts/blob/master/bcdl)
 
