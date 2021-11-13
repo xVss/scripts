@@ -1,4 +1,6 @@
-# some random scripts
+# some random scripts i wrote
+
+ i'm not newbe scripter, so any advice/correction is welcomed! 😊
 
 ## [bcdl](https://github.com/xVss/scripts/blob/master/bcdl)
 
@@ -8,10 +10,14 @@ a messy *sleepless night* script that downloads albums from Bandcamp, tagging ea
 
 ## [bookmarks](https://github.com/xVss/scripts/blob/master/bookmarks)
 
-a system-wide browser-independent simple bookmark system
+a system-wide browser-independent simple bookmark *system*
 
-it uses the system clipboard to save the bookmark in a file representing a *traditional* folder
+it uses the system clipboard to save the bookmark in a file representing a *traditional browser bookmark* folder
 
-each line in a file is composed by the url and its description
+each line in a bookmark file is composed by the url and its description
 
 ![bookmarks gif](res/bookmarks.gif)
+
+## [search](https://github.com/xVss/scripts/blob/master/search)
+
+system-wide Google and DuckDuckGo search bar
