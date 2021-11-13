@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
+# Usage:
+# bookmarks -a -> To save an URL saved in the system clipboard
+# bookmarks -o -> To open an already saved URL
+
 # Dependencies:
 # rofi - xclip
+
+bookmarks_dir="$HOME/.config/bookmarks" # Set the folder in which you want to store your bookmarks
+delim="//"                              # Set the delimiter between the bookmark's URL and its description
+
+# Set your browser in your environment settings
+# If you don't want, set it here
+#BROWSER=firefox
 
 #TODO:
 # Change bookmarks format
 # Better script rewrite
 
-# Set the folder in which you want to store your bookmarks
-bookmarks_dir="$HOME/.config/bookmarks"
-
-# Set the delimiter between the bookmark's link and its description
-delim="//"
-
-# Set your browser in your environment settings
-# If you don't want, set it here
-#BROWSER=firefox
 
 # Checking options
 while getopts ao options
