@@ -2,7 +2,7 @@
 
 i'm a newbe scripter, so any advice/correction is welcomed! 😊
 
-## [aliases](https://github.com/xVss/scripts/blob/master/bcdl)
+## [aliases](https://github.com/xVss/scripts/blob/master/aliases)
 
 some simple oneliners
 
