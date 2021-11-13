@@ -1,0 +1,30 @@
+#! /bin/bash
+
+# Usage:
+# search -g -> To search on Google
+# search -d -> To search on DuckDuckGo
+
+# Dependencies: rofi
+
+# Set your browser in your enviromental variables
+# $BROWSER=firefox
+
+while getopts dg options
+do
+    case $options in
+        d)duckgo=1; search=`rofi -dmenu -p 'DuckDuckGo' < /dev/null | tr ' ' '+'`;;
+        g)google=1; search=`rofi -dmenu -p 'Google' < /dev/null | tr ' ' '+'`;;
+        *)echo "Argument Error"; echo "Example: search -g"; exit;;
+    esac
+done
+
+if [ $search != "" ]
+then
+    if [ ! -z $duckgo ]
+    then
+        $BROWSER "https://duckduckgo.com/?q=$search" > /dev/null &
+    elif [ ! -z $google ]
+    then
+        $BROWSER "https://google.com/search?q=$search" >/dev/null &
+    fi
+fi
