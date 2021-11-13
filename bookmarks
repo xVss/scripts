@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Dependencies:
+# rofi - xclip
+
+#TODO:
+# Change bookmarks format
+# Better script rewrite
+
+# Set the folder in which you want to store your bookmarks
+bookmarks_dir="$HOME/.config/bookmarks"
+
+# Set the delimiter between the bookmark's link and its description
+delim="//"
+
+# Set your browser in your environment settings
+# If you don't want, set it here
+#BROWSER=firefox
+
+# Checking options
+while getopts ao options
+do
+    case $options in
+        a)aopt=1;;
+        o)oopt=1;;
+        *)echo "Invalid argument"; exit;;
+    esac
+done
+
+folder=`ls $bookmarks_dir | rofi -dmenu -i -p 'Select or Add Folder' -l 20`
+destination="$bookmarks_dir/$folder"
+
+# add option: bookmarks -a
+# Add a new bookmark
+if [[ ! -z $aopt ]]
+then
+    xclip -o >> $destination
+    echo -n " $delim" >> $destination
+    rofi -dmenu -p 'Add Description' < /dev/null >> $destination
+
+# open option: bookmarks -o
+# Open a saved bookmark
+elif [[ ! -z $oopt ]]
+then
+    if [ "$folder" == "all" ]
+    then
+        url=`cat "$bookmarks_dir"/* | rofi -dmenu -i -p 'Select Bookmark' -l 20 | cut -d " " -f 1`
+    elif [ "$folder" != "" ]
+    then
+        url=`cat "$destination" | rofi -dmenu -i -p 'Select Bookmark' -l 20 | cut -d " " -f 1`
+    fi
+
+    if [ "$url" != "" ]
+    then
+        $BROWSER $url
+    fi
+fi
