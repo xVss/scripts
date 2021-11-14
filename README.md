@@ -22,6 +22,10 @@ each line in a bookmark file is composed by the url and its description
 
 ![bookmarks gif](res/bookmarks.gif)
 
+## [ffmpeg](https://github.com/xVss/scripts/blob/master/ffmpeg)
+
+Some ffmpeg scripts i use for myself
+
 ## [search](https://github.com/xVss/scripts/blob/master/search)
 
 system-wide Google and DuckDuckGo search bar
