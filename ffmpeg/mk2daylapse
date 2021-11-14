@@ -1,0 +1,15 @@
+#!/bin/sh
+
+VIDEO_PATH=~/Videos/lapse
+n_videos=`ls $VIDEO_PATH | wc -l`
+i=0
+
+while [ $i != $n_videos ]
+do
+  echo "file '$i.mkv'" >> $VIDEO_PATH/list.txt
+  i=$((i + 1))
+  echo $i
+done
+
+ffmpeg -f concat -i $VIDEO_PATH/list.txt -c copy $VIDEO_PATH/`date -u +"%Y-%m-%d"`.mkv
+rm $VIDEO_PATH/list.txt

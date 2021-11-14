@@ -1,0 +1,17 @@
+#!/bin/sh
+
+VIDEO_PATH=~/Videos/lapse
+i=0
+libero=0
+
+while [ $libero -eq 0 ]; do
+    if [ -f $VIDEO_PATH/$i\.mkv ]; then
+        i=$((i + 1))
+    else
+        libero=1
+    fi
+done
+
+notify-send 'REC' 'Timelapse' --icon=video-x-generic
+
+ffmpeg -framerate 3 -f x11grab -s 2160,1440 -i :0.0+0,0 -vf settb=\(1/10\),setpts=N/TB/10 -r 30 -vcodec libx264 -crf 24 -qp 0 -preset ultrafast -pix_fmt yuv444p -threads 0 $VIDEO_PATH/$i\.mkv
