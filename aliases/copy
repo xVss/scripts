@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xsel -b | tr -d '\n' >> ~/.clipboard && echo '' >> ~/.clipboard && notify-send -t 1500 "Copied"
