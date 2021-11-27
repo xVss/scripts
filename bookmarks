@@ -1,61 +1,54 @@
 #!/usr/bin/env bash
 
-# Usage:
-# bookmarks -a -> To save an URL present in the system clipboard
-# bookmarks -o -> To open an already saved URL
 # Bind these commands to some key combination; using them on the terminal kills their usefulness
-# Make a git repo of your bookmarks so you never lose them
 
 # Dependencies:
 # rofi - xclip
 
-bookmarks_dir="$HOME/.config/bookmarks" # Set the folder in which you want to store your bookmarks
-delim="//"                              # Set the delimiter between the bookmark's URL and its description
-
 # Set your browser in your environment settings
-# If you don't want, set it here
 #BROWSER=firefox
 
-#TODO:
-# Change bookmarks format
-# Better script rewrite
+BOOKMARKS_DIR="$XDG_DATA_HOME/bookmarks"	# Set the folder in which you want to store your bookmarks
+Delim=">>"									# Set the delimiter between the bookmark's description and its URL
 
+Program=${0##*/}
 
-# Checking options
-while getopts ao options
-do
-    case $options in
-        a)aopt=1;;
-        o)oopt=1;;
-        *)echo "Invalid argument"; exit;;
-    esac
+Usage(){
+	while read ; do
+		printf '%s\n' "$REPLY"
+	done <<-EOF
+		Usage:
+		  $Program -o		- Open a saved bookmark
+		  $Program -a		- Add a new bookmark
+	EOF
+}
+
+ChooseFolder() {
+	Destination="$BOOKMARKS_DIR/`ls $BOOKMARKS_DIR | rofi -dmenu -i -p 'Select or Add Folder' -l 20`"
+}
+
+[[ -z "$1" ]] && Usage && exit
+
+while getopts ":ao" Options; do
+	case $Options in
+		a)	ChooseFolder && printf "%-40s\t${Delim} %s\n" "`rofi -dmenu -p 'Add Description' < /dev/null`" "`xclip -o`" >> $Destination
+			echo "$(awk -F">>" '{print length($1), $0}' $Destination | sort -k1 -n | cut -d " " -f2-)" > $Destination
+			exit
+			;;
+
+		o)	ChooseFolder
+			if [ "$Destination" == "$BOOKMARKS_DIR/all" ]; then
+				Url=`cat "$BOOKMARKS_DIR"/* | rofi -dmenu -i -p 'Select Bookmark' -l 20 | awk -F">>" '{print $2}'`
+			else
+				Url=`rofi -dmenu -i -p 'Select Bookmark' -l 20 < $Destination | awk -F">>" '{print $2}'`
+			fi
+			if [ "$Url" != "" ]; then
+				$BROWSER $Url > /dev/null &
+			fi
+			exit
+			;;
+
+		*)	Usage && exit
+			;;
+	esac
 done
-
-folder=`ls $bookmarks_dir | rofi -dmenu -i -p 'Select or Add Folder' -l 20`
-destination="$bookmarks_dir/$folder"
-
-# add option: bookmarks -a
-# Add a new bookmark
-if [[ ! -z $aopt ]]
-then
-    xclip -o >> $destination
-    echo -n " $delim" >> $destination
-    rofi -dmenu -p 'Add Description' < /dev/null >> $destination
-
-# open option: bookmarks -o
-# Open a saved bookmark
-elif [[ ! -z $oopt ]]
-then
-    if [ "$folder" == "all" ]
-    then
-        url=`cat "$bookmarks_dir"/* | rofi -dmenu -i -p 'Select Bookmark' -l 20 | cut -d " " -f 1`
-    elif [ "$folder" != "" ]
-    then
-        url=`cat "$destination" | rofi -dmenu -i -p 'Select Bookmark' -l 20 | cut -d " " -f 1`
-    fi
-
-    if [ "$url" != "" ]
-    then
-        $BROWSER $url
-    fi
-fi
