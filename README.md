@@ -6,21 +6,31 @@ i'm a newbe scripter, so any advice/correction is welcomed! 😊
 
 some simple oneliners
 
+## [bookmarks](https://github.com/xVss/scripts/blob/master/bookmarks)
+
+a **browser-independent** simple bookmark script that saves your favourite URLs in a file using the system clipboard and open them back using *rofi*
+
+![bookmarks gif](res/bookmarks.gif)
+
+## [rofi-paste](./rofi-paste)
+a little script that manages a _personal_ clipboard where you can save and recover stuff.
+
+one day i needed to try some payloads in gdb, but got tired of choosing the one i wanted with mouse from the clipboard history, so i made this script. hope the gifs explain better what i mean.
+
+#### old workflow
+![alias gif](res/old_workflow.gif)
+
+####new workflow
+![alias gif](res/dmenu_paste.gif)
+
 ## [bcdl](https://github.com/xVss/scripts/blob/master/bcdl)
 
-a messy *sleepless night* script that downloads albums from Bandcamp, tagging each song with few infos. very bad but it works.
+a messy *sleepless night* script that downloads albums from Bandcamp, tagging each song with few infos.
+
+very bad but it works.
 
 ![bcdl gif](res/bcdl.gif)
 
-## [bookmarks](https://github.com/xVss/scripts/blob/master/bookmarks)
-
-a system-wide browser-independent simple bookmark system
-
-it uses the system clipboard to save the bookmark in a file representing a *traditional browser bookmark* folder
-
-each line in a bookmark file is composed by the url and its description
-
-![bookmarks gif](res/bookmarks.gif)
 
 ## [ffmpeg](https://github.com/xVss/scripts/blob/master/ffmpeg)
 

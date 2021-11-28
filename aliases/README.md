@@ -11,11 +11,3 @@ some oneliners i wrote to use in vim and other stuff
 - [s2n](./s2n) - convert **s**paces **2** **n**ewlines
 
 - [stream](./stream) - stream video with mpv
-
-- [dmenu-paste](./dmenu-paste) - a little script that manages a _personal_ clipboard where to save stuff. i made it because i wanted to try different payloads in gdb, but got tired of choosing the one i wanted with mouse from the clipboard history. hope the gifs explain better what i mean.
-
-old workflow
-![alias gif](../res/old_workflow.gif)
-
-new workflow
-![alias gif](../res/dmenu_paste.gif)
