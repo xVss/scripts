@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# temporary custom clipboard
+# dependencies: rofi xdotool notify-send
+
+#TODO: delete single entry of the clipboard
+
+Clipboard="$HOME/.clipboard"
+
+Program=${0##*/}
+
+Usage(){
+	while read ; do
+		printf '%s\n' "$REPLY"
+	done <<-EOF
+		Usage:
+		  $Program -c       - Copy item saved in system clipboard to \\
+			custom clipboard
+		  $Program -p       - Paste an entry to custom clipboard
+		  $Program -d       - Delete content of custom clipboard
+	EOF
+}
+
+[[ -z "$1" ]] && Usage && exit
+
+while getopts ":cpd" Options; do
+	case $Options in
+		c)  printf "%s\n" "$(xsel -b | tr -d '\t')" >> $Clipboard && \
+			notify-send -t 2500 "Entry Copied" && exit
+			;;
+
+		p)  rofi -dmenu < $Clipboard | \
+			xdotool type --delay 0 --clearmodifiers --file - && exit
+			;;
+
+		d)  > $Clipboard && notify-send -t 2500 "Clipboard Cleaned" && exit
+			;;
+
+		*)  Usage && exit
+			;;
+	esac
+done

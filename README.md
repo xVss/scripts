@@ -14,7 +14,7 @@ a messy *sleepless night* script that downloads albums from Bandcamp, tagging ea
 
 ## [bookmarks](https://github.com/xVss/scripts/blob/master/bookmarks)
 
-a system-wide browser-independent simple bookmark *system*
+a system-wide browser-independent simple bookmark system
 
 it uses the system clipboard to save the bookmark in a file representing a *traditional browser bookmark* folder
 
