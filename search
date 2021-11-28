@@ -1,9 +1,5 @@
 #! /bin/bash
 
-# Usage:
-# search -g -> To search on Google
-# search -d -> To search on DuckDuckGo
-
 # Dependencies:
 # rofi
 
@@ -16,8 +12,8 @@ Usage(){
 		printf '%s\n' "$REPLY"
 	done <<-EOF
 		Usage:
-		  $Program -g		- Search on Google
-		  $Program -d		- Search on DuckDuckGo
+		  $Program -g       - Search on Google
+		  $Program -d       - Search on DuckDuckGo
 	EOF
 }
 
@@ -25,17 +21,18 @@ Usage(){
 
 while getopts ":dg" Options
 do
-    case $Options in
-        d)  Search=`rofi -dmenu -p 'DuckDuckGo' < /dev/null | tr ' ' '+'`
-            [[ -z "$Search" ]] || $BROWSER "https://duckduckgo.com/?q=$Search" > /dev/null &
-            exit
-            ;;
+	case $Options in
+		d)  Search=`rofi -dmenu -p 'DuckDuckGo' < /dev/null | tr ' ' '+'`
+			[[ -z "$Search" ]] || $BROWSER "https://duckduckgo.com/?q=$Search" > /dev/null &
+			exit
+			;;
 
-        g)  Search=`rofi -dmenu -p 'Google' < /dev/null | tr ' ' '+'`
-            [[ -z "$Search" ]] || $BROWSER "https://google.com/search?q=$Search" >/dev/null &
-            exit
-            ;;
+		g)  Search=`rofi -dmenu -p 'Google' < /dev/null | tr ' ' '+'`
+			[[ -z "$Search" ]] || $BROWSER "https://google.com/search?q=$Search" >/dev/null &
+			exit
+			;;
 
-        *) Usage && exit ;;
-    esac
+		*) Usage && exit ;;
+	esac
+
 done
