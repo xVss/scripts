@@ -1,6 +1,6 @@
 # aliases
 
-some oneliners i wrote to use in vim and other stuff
+some oneliners i wrote to use in vim
 
 - [2bin](./2bin) - convert a number **2** **bin**ary
 - [2hex](./2hex) - convert a number **2** **hex**adecimal
