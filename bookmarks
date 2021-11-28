@@ -5,10 +5,10 @@
 # Dependencies:
 # rofi - xclip
 
-#BROWSER=firefox							# Set your browser in your environment variables
+#BROWSER=firefox                            # Set your browser in your environment variables
 
-BOOKMARKS_DIR="$XDG_DATA_HOME/bookmarks"	# Set the folder in which you want to store your bookmarks
-Delim=">>"									# Set the delimiter between the bookmark's description and its URL
+BOOKMARKS_DIR="$XDG_DATA_HOME/bookmarks"    # Set the folder in which you want to store your bookmarks
+Delim=">>"                                  # Set the delimiter between the bookmark's description and its URL
 
 Program=${0##*/}
 
@@ -17,8 +17,8 @@ Usage(){
 		printf '%s\n' "$REPLY"
 	done <<-EOF
 		Usage:
-		  $Program -o		- Open a saved bookmark
-		  $Program -a		- Add a new bookmark
+		  $Program -o       - Open a saved bookmark
+		  $Program -a       - Add a new bookmark
 	EOF
 }
 
@@ -30,12 +30,12 @@ ChooseFolder() {
 
 while getopts ":ao" Options; do
 	case $Options in
-		a)	ChooseFolder && printf "%-40s\t${Delim} %s\n" "`rofi -dmenu -p 'Add Description' < /dev/null`" "`xclip -o`" >> $Destination
+		a)  ChooseFolder && printf "%-40s\t${Delim} %s\n" "`rofi -dmenu -p 'Add Description' < /dev/null`" "`xclip -o`" >> $Destination
 			echo "$(awk -F"${Delim}" '{print length($1), $0}' $Destination | sort -k1 -n | cut -d " " -f2-)" > $Destination
 			exit
 			;;
 
-		o)	ChooseFolder
+		o)  ChooseFolder
 			if [ "$Destination" == "$BOOKMARKS_DIR/all" ]; then
 				Url=`cat "$BOOKMARKS_DIR"/* | rofi -dmenu -i -p 'Select Bookmark' -l 20 | awk -F"${Delim}" '{print $2}'`
 			elif [ "$Destination" != "$BOOKMARKS_DIR/" ]; then
@@ -46,7 +46,7 @@ while getopts ":ao" Options; do
 			exit
 			;;
 
-		*)	Usage && exit
+		*)  Usage && exit
 			;;
 	esac
 done
