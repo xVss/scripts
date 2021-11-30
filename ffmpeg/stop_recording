@@ -1,3 +1,4 @@
 #!/bin/sh
 
-kill -15 `ps auxww | grep "ffmpeg -f" | head -n1 | awk '{print $2}'` && notify-send 'FFMPEG' 'Recording Stopped' --icon=video-x-generic
+kill -15 $(ps auxww | grep "ffmpeg -f" | awk '{print $2; exit}') && \
+	notify-send -t 2000 'FFMPEG' 'Recording Stopped' --icon=video-x-generic

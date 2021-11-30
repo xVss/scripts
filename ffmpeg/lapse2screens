@@ -1,21 +1,12 @@
 #!/bin/sh
 
-VIDEO_PATH=~/Videos/lapse
-i=0
-libero=0
+LapseDirectory="$HOME/Videos/lapse"
+Ext="mkv"
+printf -v Filename '%(%Y-%m-%d_%H-%M-%S)T'
 
-while [ $libero -eq 0 ]; do
-    if [ -f $VIDEO_PATH/$i\.mkv ]; then
-        i=$((i + 1))
-    else
-        libero=1
-    fi
-done
-
-notify-send 'REC' '2 Screen Lapse' --icon=video-x-generic
-
+notify-send -t 2000 'REC' '2 Screen Lapse' --icon=video-x-generic
 ffmpeg -framerate 3 -f x11grab -s 2160,1440 -i :0.0+0,1080 \
-    -framerate 3 -f x11grab -s 1920,1080 -i :0.0 \
-    -filter_complex '[1:0]scale=960x540[a],[0:0][a]overlay=(main_w-overlay_w):(main_h-overlay_h):format=yuv444,settb=\(1/10\),setpts=N/TB/10' \
-    -r 30 \
-    -vcodec libx264 -crf 24 -qp 0 -preset ultrafast -pix_fmt yuv444p -threads 0 $VIDEO_PATH/$i\.mkv
+	-framerate 3 -f x11grab -s 1920,1080 -i :0.0 \
+	-filter_complex '[1:0]scale=960x540[a],[0:0][a]overlay=(main_w-overlay_w):(main_h-overlay_h):format=yuv444,settb=\(1/10\),setpts=N/TB/10' \
+	-r 30 -vcodec libx264 -crf 24 -qp 0 -preset ultrafast \
+	-pix_fmt yuv444p -threads 0 ${LapseDirectory}/${Filename}.${Ext}

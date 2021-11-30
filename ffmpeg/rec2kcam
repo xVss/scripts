@@ -1,15 +1,13 @@
 #!/bin/sh
 
-i=0
-libero=0
+VideoDirectory="$HOME/Videos"
+Ext="mkv"
+printf -v Filename '%(%Y-%m-%d_%H-%M-%S)T'
 
-while [ $libero -eq 0 ]; do
-    if [ -f ~/Videos/$i\_out.mkv ]; then
-        i=$((i + 1))
-    else
-        libero=1
-    fi
-done
-
-notify-send 'REC' 'Screen + Mic + Cam' --icon=video-x-generic
-ffmpeg -f alsa -i default -f x11grab -video_size 2160x1440 -framerate 25 -i :0.0 -f v4l2 -video_size 640x360 -framerate 25 -i /dev/video0 -filter_complex 'overlay=main_w-overlay_w:main_h-overlay_h:format=yuv444' -vcodec libx264 -preset ultrafast -crf 24 -qp 0 -pix_fmt yuv444p ~/Videos/$i\_out.mkv
+notify-send -t 2000 'REC' 'Screen + Mic + Cam' --icon=video-x-generic
+ffmpeg -f alsa -i default \
+	-f x11grab -video_size 2160x1440 -framerate 25 -i :0.0 \
+	-f v4l2 -video_size 640x360 -framerate 25 -i /dev/video0 \
+	-filter_complex 'overlay=main_w-overlay_w:main_h-overlay_h:format=yuv444' \
+	-vcodec libx264 -preset ultrafast -crf 24 -qp 0 -pix_fmt yuv444p \
+	${VideoDirectory}/${Filename}.${Ext}

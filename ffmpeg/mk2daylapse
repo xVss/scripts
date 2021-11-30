@@ -1,14 +1,14 @@
 #!/bin/sh
 
-VIDEO_PATH=~/Videos/lapse
-n_videos=`ls $VIDEO_PATH | wc -l`
-i=0
+LapseDirectory="$HOME/Videos/lapse"
+Ext="mkv"
+printf -v Filename '%(%Y-%m-%d_%H-%M-%S)T'
 
-while [ $i != $n_videos ]
-do
-  echo "file '$i.mkv'" >> $VIDEO_PATH/list.txt
-  i=$((i + 1))
+for File in `ls ${LapseDirectory}/*.${Ext}`; do
+	printf "file '%s'\n" "$File" >> ${LapseDirectory}/list.txt
 done
 
-ffmpeg -f concat -i $VIDEO_PATH/list.txt -c copy $VIDEO_PATH/`date -u +"%Y-%m-%d"`.mkv
-rm $VIDEO_PATH/list.txt
+ffmpeg -f concat -i ${LapseDirectory}/list.txt \
+	-c copy ${LapseDirectory}/${Filename}.${Ext}
+
+rm ${LapseDirectory}/list.txt
